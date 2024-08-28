@@ -570,6 +570,7 @@ require('lazy').setup({
         rust_analyzer = {},
         astro = {},
         biome = {},
+        tsserver = {},
         cmake = {},
         bashls = {},
         dockerls = {},
