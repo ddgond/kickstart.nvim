@@ -113,7 +113,7 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+-- vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -915,6 +915,24 @@ require('lazy').setup({
       lazy = '💤 ',
     },
   },
+})
+
+-- Hyprlang LSP
+vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
+  pattern = {"*.hl", "hypr*.conf"},
+  callback = function(event)
+    print(string.format("starting hyprls for %s", vim.inspect(event)))
+    vim.lsp.start {
+      name = "hyprlang",
+      cmd = {"hyprls"},
+      root_dir = vim.fn.getcwd(),
+    }
+  end
+})
+
+-- Hyprland treesitter highlighting
+vim.filetype.add({
+  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
